@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  fx_service:
+    restart: always
+    build:
+      context: .
+    volumes:
+      - ./:/opt/app
+    ports:
+      - "3002:3002"
+    entrypoint: python3
+    command: /opt/app/server.py
+    environment:
+      stage: local
+      project_config_dir: ./src/settings
+  fx_service-test:
+    build:
+      context: .
+      args:
+        PIP_REQUIREMENTS: requirements-test.txt
+    volumes:
+      - ./:/opt/app
+    entrypoint: ''
+    command: pytest -vv
+    environment:
+      stage: test

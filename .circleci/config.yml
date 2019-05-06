@@ -26,7 +26,7 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            pytest -vv --cov=src tests/
+            python -m pytest -vv --cov=src tests/
             coverage html -d artifacts
       - store_artifacts:
           path: artifacts

@@ -4,6 +4,8 @@ from flask import Flask, jsonify, request
 from manageconf import Config, get_config  # noqa F401
 import requests
 
+from .currencies import AVAILABLE_CURRENCIES
+
 MISSING_PAYLOAD_ERROR = {"statusCode": 400, "message": "Missing or incorrect payload"}
 
 app = Flask(__name__)
@@ -62,14 +64,13 @@ def get_conversion():
         return jsonify(MISSING_PAYLOAD_ERROR)
     base_currency = payload.get("base")
     target_currency = payload.get("target")
-    available_currencies = get_config("available_currencies")
-    if not set([base_currency, target_currency]).issubset(available_currencies):
+    if not set([base_currency, target_currency]).issubset(AVAILABLE_CURRENCIES):
         return (
             jsonify(
                 {
                     "statusCode": 400,
                     "message": "Incorrect currency code. "
-                    f"Available rates: {', '.join(available_currencies)}",
+                    f"Available rates: {', '.join(AVAILABLE_CURRENCIES)}",
                 }
             ),
             400,

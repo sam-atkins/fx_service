@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci
+    environment:
+      stage: test
+      project_config_dir: ~/circleci/circleci/src/settings
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - restore_cache:
+          key: requirements_1-{{ .Branch }}-{{ checksum "requirements-test.txt" }}
+      - run:
+          name: Install Python dependencies in a virtual env
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements-test.txt
+      - save_cache:
+          key: requirements_1-{{ .Branch }}-{{ checksum "requirements-test.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            pytest -vv --cov=src tests/
+            coverage html -d artifacts
+      - store_artifacts:
+          path: artifacts
+          destination: cov

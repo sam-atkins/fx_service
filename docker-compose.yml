@@ -25,3 +25,4 @@ services:
     command: pytest -vv
     environment:
       stage: test
+      project_config_dir: ./src/settings

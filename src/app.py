@@ -36,7 +36,7 @@ def get_rates():
 
     try:
         response = _make_api_request(base_currency=base_currency)
-        return response, 200
+        return jsonify({"statusCode": 200, "payload": response}), 200
     except Exception:
         return jsonify({"statusCode": 500, "message": "Something went wrong"}), 500
 
@@ -79,8 +79,7 @@ def get_conversion():
         return jsonify(MISSING_PAYLOAD_ERROR), 400
 
     try:
-        response = _make_api_request(base_currency=base_currency)
-        payload = json.loads(response)
+        payload = _make_api_request(base_currency=base_currency)
     except Exception:
         return jsonify({"statusCode": 500, "message": "Something went wrong"}), 500
 
@@ -108,7 +107,7 @@ def _make_api_request(base_currency: str = None):
     try:
         response = requests.get(url=url)
         if response.status_code == 200:
-            return response.text
+            return json.loads(response.text)
     except requests.RequestException as e:
         # log to cloudwatch
         print(e)

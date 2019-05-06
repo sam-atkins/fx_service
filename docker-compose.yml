@@ -10,7 +10,7 @@ services:
     ports:
       - "3002:3002"
     entrypoint: python3
-    command: /opt/app/server.py
+    command: /opt/app/src/server.py
     environment:
       stage: local
       project_config_dir: ./src/settings

@@ -3,9 +3,9 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from server import app
-from tests.datasets.rates import RATES
+from src.server import app
 from src.app import _convert_amount_to_target_currency
+from tests.datasets.rates import RATES
 
 
 @pytest.fixture

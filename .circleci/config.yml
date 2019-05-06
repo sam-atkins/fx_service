@@ -3,6 +3,7 @@ jobs:
   build:
     working_directory: ~/circleci
     environment:
+      ENVIRONMENT: test
       stage: test
       project_config_dir: ~/circleci/circleci/src/settings
     docker:

@@ -1,6 +1,7 @@
 from unittest.mock import Mock, patch
 
 import pytest
+from manageconf import Config  # noqa F401
 import requests
 
 from src.server import app

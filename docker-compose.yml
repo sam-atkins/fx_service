@@ -14,6 +14,10 @@ services:
     environment:
       stage: local
       project_config_dir: ./src/settings
+    networks:
+      default:
+          aliases:
+              - fx_service
   fx_service-test:
     build:
       context: .
@@ -26,3 +30,8 @@ services:
     environment:
       stage: test
       project_config_dir: ./src/settings
+
+networks:
+  default:
+    external:
+      name: portal_network

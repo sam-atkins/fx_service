@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request
 from manageconf import Config, get_config  # noqa F401
 import requests
 
-from .currencies import AVAILABLE_CURRENCIES
+from src.currencies import AVAILABLE_CURRENCIES
 
 MISSING_PAYLOAD_ERROR = {"statusCode": 400, "message": "Missing or incorrect payload"}
 

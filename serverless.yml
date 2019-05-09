@@ -1,0 +1,30 @@
+service: fx-service
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+
+custom:
+  wsgi:
+    app: src/app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+
+package:
+  include:
+    - src/**
+
+provider:
+  name: aws
+  runtime: python3.7
+  profile: sam__dev
+  stage: dev
+  region: us-east-1
+
+functions:
+  app:
+    handler: wsgi_handler.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'

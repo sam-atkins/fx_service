@@ -7,7 +7,7 @@ RUN mkdir /opt/app
 WORKDIR /opt/app
 COPY . /opt/app
 
-ARG PIP_REQUIREMENTS=src/requirements.txt
+ARG PIP_REQUIREMENTS=requirements.txt
 RUN python3 -m pip install -r ${PIP_REQUIREMENTS}
 
 EXPOSE 3002
